@@ -1,13 +1,12 @@
 package Point;
-
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
 public abstract class AbstractPoint implements Comparable<AbstractPoint> {
     protected Double[] vector;
 
-    public AbstractPoint(double[] vector) {
-        this.vector = Arrays.stream(vector).boxed().toArray(Double[]::new);
+    public AbstractPoint(Double[] vector) {
+        this.vector = vector;
     }
 
     public abstract AbstractPoint translate(Double[] translateVector);

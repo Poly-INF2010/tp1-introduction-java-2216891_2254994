@@ -10,7 +10,7 @@ public class Point2d extends AbstractPoint {
      * @param y Y coordinate
      */
     public Point2d(Double x, Double y) {
-        super(new double[] {0.0, 0.0});
+        super(new Double[] {x, y});
     }
 
     /** TODO
@@ -18,8 +18,10 @@ public class Point2d extends AbstractPoint {
      * @param vector Vector containing X and Y coordinates
      */
     public Point2d(Double[] vector) {
-        this(0.0, 0.0);
+        super(vector.clone());
     }
+
+
 
     /**
      * @return X coordinate
@@ -38,8 +40,10 @@ public class Point2d extends AbstractPoint {
      */
     @Override
     public Point2d translate(Double[] translateVector) {
-        return null;
+        PointOperator.translate(this.vector, translateVector);
+        return this;
     }
+
 
     /** TODO
      * Translate the point by the given 2D Point
@@ -47,7 +51,8 @@ public class Point2d extends AbstractPoint {
      * @return Translated point
      */
     public Point2d translate(Point2d translateVector) {
-        return null;
+        translate(translateVector.vector);
+        return this;
     }
 
     /** TODO
@@ -57,7 +62,9 @@ public class Point2d extends AbstractPoint {
      */
     @Override
     public Point2d rotate(Double[][] rotationMatrix) {
-        return null;
+        PointOperator.rotate(this.vector, rotationMatrix);
+        return this;
+
     }
 
     /** TODO
@@ -66,7 +73,11 @@ public class Point2d extends AbstractPoint {
      * @return Rotated point
      */
     public Point2d rotate(Double angle) {
-        return null;
+        Double[][] rotationMatrix = {
+                { Math.cos(angle), -Math.sin(angle) },
+                { Math.sin(angle), Math.cos(angle) },
+        };
+        return this.rotate(rotationMatrix);
     }
 
     /** TODO
@@ -76,7 +87,8 @@ public class Point2d extends AbstractPoint {
      */
     @Override
     public Point2d divide(Double divider) {
-        return null;
+        PointOperator.divide(vector, divider);
+        return this;
     }
 
     /** TODO
@@ -86,7 +98,8 @@ public class Point2d extends AbstractPoint {
      */
     @Override
     public Point2d multiply(Double multiplier) {
-        return null;
+        PointOperator.multiply(vector, multiplier);
+        return this;
     }
 
     /** TODO
@@ -96,7 +109,8 @@ public class Point2d extends AbstractPoint {
      */
     @Override
     public Point2d add(Double adder) {
-        return null;
+        PointOperator.add(vector, adder);
+        return this;
     }
 
     /** TODO
@@ -104,6 +118,10 @@ public class Point2d extends AbstractPoint {
      */
     @Override
     public Point2d clone() {
-        return null;
+        Point2d clonedPoint = new Point2d(vector);
+        for(int i = 0; i < vector.length; i++){
+            clonedPoint.vector[i] = vector[i];
+        }
+        return clonedPoint;
     }
 }
