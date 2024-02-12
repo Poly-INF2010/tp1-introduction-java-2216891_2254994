@@ -2,6 +2,7 @@ package Shape;
 
 import Point.Point2d;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 public class Rectangle extends BaseShape {
@@ -11,12 +12,7 @@ public class Rectangle extends BaseShape {
      * @param height Height of the rectangle
      */
     public Rectangle(Double width, Double height) {
-        super();
-        for(double i = -width/2; i < width/2; i++){
-            for(double j = - height/2; j < height/2; j++){
-                add(new Point2d(i,j));
-            }
-        }
+        super(createRectangleCoords(width, height));
     }
 
     /** TODO
@@ -24,8 +20,7 @@ public class Rectangle extends BaseShape {
      * @param dimensions 2D point containing the width and height of the rectangle
      */
     public Rectangle(Point2d dimensions) {
-        this(dimensions.X(), dimensions.Y());
-
+        super(createRectangleCoords(dimensions.X(), dimensions.Y()));
     }
 
     /**
@@ -41,7 +36,26 @@ public class Rectangle extends BaseShape {
      */
     @Override
     public Rectangle clone() {
+        return new Rectangle(super.cloneCoords());
+    }
 
-        return (Rectangle) super.clone();
+    /**
+     * Creates a collection of 2D points representing a Rectangle
+     * @param width Width of the rectangle
+     * @param height Height of the rectangle
+     * @return Collection of 2D points representing the rectangle
+     */
+    private static Collection<Point2d> createRectangleCoords(Double width, Double height) {
+        Collection<Point2d> coords = new ArrayList<>();
+        Double halfWidth = width / 2.0;
+        Double halfHeight = height / 2.0;
+
+        for (double x = -halfWidth; x <= halfWidth; x += 0.5) {
+            for (double y = -halfHeight; y <= halfHeight; y += 0.5) {
+                coords.add(new Point2d(x, y));
+            }
+        }
+
+        return coords;
     }
 }
